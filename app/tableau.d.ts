@@ -7,8 +7,5 @@ type Tableau = typeof TableauExtensions & typeof TableauShared;
 
 
 declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    tableau: Tableau;
-  }
+  let tableau: Tableau;
 }
