@@ -2,19 +2,21 @@
 import React, { useEffect } from 'react';
 
 
-
+/*global tableau */
 function MainComponent () {
 
   const [selectedSheetName, setSelectedSheetName] = React.useState<string | null>(null);
   const [dashboardName, setDashboardName] = React.useState<string | null>(null);
-  
+  const windowname = window.name;
+
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.tableau) {
-      window.tableau.extensions.initializeAsync().then(() => {
+    if (typeof window !== 'undefined') {
+      
+      tableau.extensions.initializeAsync().then(() => {
         try {
-          const dashboard = window.tableau.extensions.dashboardContent?.dashboard;
-          const dashboardName = dashboard?.name
-          const selectedSheet = window.tableau.extensions.settings.get('sheet');
+          const dashboard = tableau.extensions.dashboardContent.dashboard;
+          const dashboardName = dashboard.name
+          const selectedSheet = tableau.extensions.settings.get('sheet');
           
           setSelectedSheetName(typeof selectedSheet === 'string' ? selectedSheet : null);
           setDashboardName(typeof dashboardName === 'string' ? dashboardName : null);
@@ -29,9 +31,9 @@ function MainComponent () {
 
   const renderSheet = () => {
     if (dashboardName) {
-      return <div>Selected Sheet: {selectedSheetName} in dashboard {dashboardName}</div>;
+      return <div>Selected Sheet: {selectedSheetName} in dashboard {dashboardName} </div>;
     }
-    return <div>No sheet selected</div>;
+    return <div>No sheet selected. Window name is { windowname }</div>;
   };
 
   return (
