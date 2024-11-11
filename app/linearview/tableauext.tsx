@@ -28,7 +28,7 @@ function MainComponent () {
   }, []);
 
   const renderSheet = () => {
-    if (selectedSheetName) {
+    if (dashboardName) {
       return <div>Selected Sheet: {selectedSheetName} in dashboard {dashboardName}</div>;
     }
     return <div>No sheet selected</div>;
