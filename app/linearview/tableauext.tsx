@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect } from 'react';
-import 'tableau';
+
 
 function MainComponent () {
 

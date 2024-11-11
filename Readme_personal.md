@@ -1,6 +1,7 @@
 
 ## Create app
 ```bash
+npm install -g pnpm
 npx create-next-app@latest scr-network-linearview --use-pnpm
 ```
 
