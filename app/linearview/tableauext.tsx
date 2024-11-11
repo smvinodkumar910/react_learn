@@ -1,8 +1,7 @@
 "use client"
 
 import React, { useEffect } from 'react';
-import '@tableau/extensions-api-types'; // This line imports the global declaration
-
+import '@/tableau/extensions-api-types'; // This line imports the global declaration
 
 
 function MainComponent () {
