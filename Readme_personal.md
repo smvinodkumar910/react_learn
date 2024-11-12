@@ -13,7 +13,6 @@ pnpm i vis-network
 
 2. tableau : 
 ```bash
-pnpm i tableau
 pnpm i @tableau/extensions-api-types
 ```
 # Run application 
