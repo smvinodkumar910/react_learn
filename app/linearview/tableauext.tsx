@@ -10,7 +10,9 @@ function MainComponent () {
 
   
   useEffect(() => {
-    
+    console.log("before if block inside useEffect:")
+    console.log(window)
+    console.log(window.tableau)
     if (typeof window !== 'undefined' && window.tableau) {
       console.log("inside if block :")
       console.log(window.tableau)
