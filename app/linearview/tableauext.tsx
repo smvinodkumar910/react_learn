@@ -6,16 +6,31 @@ import Script from 'next/script';
 import marks from '@/app/linearview/tableau/extensions-api-types'
 
 
-function getData(worksheet: marks.Worksheet){
+
+function getDataColumns(worksheet: marks.Worksheet){
+  
+
   worksheet.getSummaryColumnsInfoAsync().then((response)=>{
 
     response.forEach((columns, index)=>{
-      console.log(columns);
+      console.log(columns.fieldName);
       console.log(index);
     })
 
   },(error) => console.log(error));
   
+}
+
+function getData(worksheet: marks.Worksheet){
+  worksheet.getSummaryDataReaderAsync().then((response)=>{
+    response.getAllPagesAsync(200).then(data => {
+      data.data.forEach((value, index) => {
+        console.log(value.values.toString);
+        console.log(index);
+      })
+    })
+  },(error) => console.log(error));
+
 }
 
 function MainComponent () {
@@ -32,7 +47,8 @@ function MainComponent () {
       tableau.extensions.initializeAsync().then(() => {
         const worksheet = tableau.extensions.worksheetContent?.worksheet
         let worksheetname = null;
-        getData(worksheet!);
+        getDataColumns(worksheet!);
+        getData(worksheet!)
         
         //let worksheetsize: Sheet.Size | null = null;
         try {
