@@ -7,8 +7,15 @@ import marks from '@/app/linearview/tableau/extensions-api-types'
 
 
 function getData(worksheet: marks.Worksheet){
-  const columnsArray = worksheet.getSummaryColumnsInfoAsync();
-  console.log(columnsArray);
+  worksheet.getSummaryColumnsInfoAsync().then((response)=>{
+
+    response.forEach((columns, index)=>{
+      console.log(columns);
+      console.log(index);
+    })
+
+  },(error) => console.log(error));
+  
 }
 
 function MainComponent () {
