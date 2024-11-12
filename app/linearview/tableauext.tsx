@@ -5,6 +5,7 @@ import Script from 'next/script';
 //import Sheet from '@/app/linearview/tableau/extensions-api-types'
 import marks from '@/app/linearview/tableau/extensions-api-types'
 
+
 function MainComponent () {
 
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
@@ -23,7 +24,7 @@ function MainComponent () {
         worksheet?.getSelectedMarksAsync().then((sheetmarks :marks.MarksCollection)=>{
 
           const sheetData = sheetmarks.data;
-          console.log(sheetData.toString());
+          console.log(sheetData.join(","));
         })
         try {
           if(worksheet && worksheet.name){
