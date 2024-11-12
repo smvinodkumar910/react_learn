@@ -71,6 +71,12 @@ function MainComponent () {
         //getDataColumns(worksheet!);
         //getData(worksheet!)
         getFilterDetails(worksheet!);
+
+        if (worksheet) {
+        worksheet.addEventListener(tableau.TableauEventType.FilterChanged,function(filterChangedEvent){
+          console.log(filterChangedEvent)
+      })
+    }
         
         //let worksheetsize: Sheet.Size | null = null;
         try {

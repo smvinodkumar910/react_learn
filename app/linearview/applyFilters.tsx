@@ -14,10 +14,4 @@ export default function getFilterDetails(worksheet: marks.Worksheet){
         })
     }, (error) => console.log(error));
 
-    worksheet.addEventListener(tableau.TableauEventType.FilterChanged,function(filterChangedEvent){
-        console.log(filterChangedEvent)
-    })
-
-    
-
 }
