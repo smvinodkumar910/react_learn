@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect } from 'react';
+import Script from 'next/script';
 
 
 function MainComponent () {
@@ -48,6 +49,7 @@ function MainComponent () {
 
   return (
     <>
+      <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
       {renderSheet()}
     </>
   );
