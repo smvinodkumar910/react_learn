@@ -3,7 +3,9 @@
 import React, { useEffect } from 'react';
 import Script from 'next/script';
 //import Sheet from '@/app/linearview/tableau/extensions-api-types'
-import marks from '@/app/linearview/tableau/extensions-api-types'
+import marks from '@/app/linearview/tableau/extensions-api-types';
+import getFilterDetails from '@/app/linearview/applyFilters';
+
 
 
 
@@ -51,6 +53,7 @@ function MainComponent () {
         let worksheetname = null;
         getDataColumns(worksheet!);
         getData(worksheet!)
+        getFilterDetails(worksheet!);
         
         //let worksheetsize: Sheet.Size | null = null;
         try {
