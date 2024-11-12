@@ -1,4 +1,4 @@
-import marks from '@/app/linearview/tableau/extensions-api-types';
+import marks  from '@/app/linearview/tableau/extensions-api-types';
 
 export default function getFilterDetails(worksheet: marks.Worksheet){
     worksheet.getFiltersAsync().then((response)=>{
@@ -13,5 +13,11 @@ export default function getFilterDetails(worksheet: marks.Worksheet){
 
         })
     }, (error) => console.log(error));
-}
 
+    worksheet.addEventListener(tableau.TableauEventType.FilterChanged,function(filterChangedEvent){
+        console.log(filterChangedEvent)
+    })
+
+    
+
+}
