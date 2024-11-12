@@ -11,22 +11,18 @@ function MainComponent () {
 
   
   useEffect(() => {
-    console.log("before if block inside useEffect:")
-    console.log(window)
-    console.log(window.tableau)
-    if (typeof window !== 'undefined' && window.tableau) {
-      console.log("inside if block :")
-      console.log(window.tableau)
-      window.tableau.extensions.initializeAsync().then(() => {
-        console.log("after initializing")
-        console.log(window.tableau)
+   
+    if (typeof window !== 'undefined' && tableau) {
+      
+      tableau.extensions.initializeAsync().then(() => {
+      
         let dashboardName = null;
         let selectedSheet = null;
         try {
-          if(window.tableau.extensions.dashboardContent && window.tableau.extensions.dashboardContent.dashboard){
-            dashboardName = window.tableau.extensions.dashboardContent.dashboard.name;
+          if(tableau.extensions.dashboardContent && tableau.extensions.dashboardContent.dashboard){
+            dashboardName = tableau.extensions.dashboardContent.dashboard.name;
           }
-          selectedSheet = window.tableau.extensions.settings.get('sheet');          
+          selectedSheet = tableau.extensions.settings.get('sheet');          
           
           setSelectedSheetName(typeof selectedSheet === 'string' ? selectedSheet : null);
           setDashboardName(dashboardName);
