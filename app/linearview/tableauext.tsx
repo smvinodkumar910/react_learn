@@ -38,17 +38,28 @@ function getData(worksheet: marks.Worksheet){
 }
 */
 
-function getFilterDetails(worksheet: marks.Worksheet){
+function getFilterDetails(worksheet: marks.Worksheet): void{
   worksheet.getFiltersAsync().then((response)=>{
       response.forEach((filter, filterIndex)=>{
           console.log(filterIndex);
           console.log(filter.fieldName);
           console.log(filter.filterType);
           console.log(filter.fieldId)
-          filter.getFieldAsync().then(response => {
-              console.log(response.columnType);
+
+          const categoricalFilter = filter as marks.CategoricalFilter;
+          
+          categoricalFilter.getDomainAsync().then(appliedValues => {
+            console.log("Selected Values:", appliedValues.values.forEach((value,i)=>{
+              console.log(value);
+              console.log(i);
+            })); 
           })
 
+          filter.getFieldAsync().then(response => {
+              console.log(response.columnType);
+          });
+
+          
       })
   }, (error) => console.log(error));
 }
@@ -70,11 +81,12 @@ function MainComponent () {
         let worksheetname = null;
         //getDataColumns(worksheet!);
         //getData(worksheet!)
-        getFilterDetails(worksheet!);
+        
 
         if (worksheet) {
         worksheet.addEventListener(tableau.TableauEventType.FilterChanged,function(filterChangedEvent){
           console.log(filterChangedEvent)
+          getFilterDetails(worksheet!);
       })
     }
         
