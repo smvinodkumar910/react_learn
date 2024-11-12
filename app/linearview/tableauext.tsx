@@ -2,12 +2,13 @@
 
 import React, { useEffect } from 'react';
 import Script from 'next/script';
-import Sheet from '@/app/linearview/tableau/extensions-api-types'
+//import Sheet from '@/app/linearview/tableau/extensions-api-types'
+import marks from '@/app/linearview/tableau/extensions-api-types'
 
 function MainComponent () {
 
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
-  const [workSheetSize, setWorkSheetSize] = React.useState<Sheet.Size | null>(null);
+  //const [workSheetSize, setWorkSheetSize] = React.useState<Sheet.Size | null>(null); // use to fit the Viz.
   
 
   
@@ -16,18 +17,22 @@ function MainComponent () {
     if (typeof window !== 'undefined' && tableau) {
       
       tableau.extensions.initializeAsync().then(() => {
-        const worksheet =tableau.extensions.worksheetContent?.worksheet
+        const worksheet = tableau.extensions.worksheetContent?.worksheet
         let worksheetname = null;
-        let worksheetsize: Sheet.Size | null = null;
-        
+        //let worksheetsize: Sheet.Size | null = null; 
+        worksheet?.getSelectedMarksAsync().then((sheetmarks :marks.MarksCollection)=>{
+
+          const sheetData = sheetmarks.data;
+          console.log(sheetData.toString());
+        })
         try {
           if(worksheet && worksheet.name){
             worksheetname = worksheet.name;
-            worksheetsize = worksheet.size;
+            //worksheetsize = worksheet.size;
           }
           
           setWorkSheetName(worksheetname);
-          setWorkSheetSize(worksheetsize!);
+          //setWorkSheetSize(worksheetsize!);
           
         } catch (error) {
           console.error("Error getting Tableau settings:", error);
@@ -40,7 +45,7 @@ function MainComponent () {
 
   const renderSheet = () => {
     if (workSheetName) {
-      return <div>WorkSheet: {workSheetName} of size {workSheetSize?.width} x { workSheetSize?.height} </div>;
+      return <div>WorkSheet: {workSheetName} </div>;
     }
     return <div>No sheet selected</div>;
   };
