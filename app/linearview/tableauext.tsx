@@ -17,10 +17,10 @@ function MainComponent () {
         let dashboardName = null;
         let selectedSheet = null;
         try {
-          if(tableau.extensions.dashboardContent && tableau.extensions.dashboardContent.dashboard){
-            dashboardName = tableau.extensions.dashboardContent.dashboard.name;
+          if(window.tableau.extensions.dashboardContent && window.tableau.extensions.dashboardContent.dashboard){
+            dashboardName = window.tableau.extensions.dashboardContent.dashboard.name;
           }
-          selectedSheet = tableau.extensions.settings.get('sheet');          
+          selectedSheet = window.tableau.extensions.settings.get('sheet');          
           
           setSelectedSheetName(typeof selectedSheet === 'string' ? selectedSheet : null);
           setDashboardName(dashboardName);
