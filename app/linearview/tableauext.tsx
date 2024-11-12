@@ -8,7 +8,7 @@ import marks from '@/app/linearview/tableau/extensions-api-types';
 
 
 
-
+/*
 function getDataColumns(worksheet: marks.Worksheet){
   
 
@@ -36,7 +36,7 @@ function getData(worksheet: marks.Worksheet){
   },(error) => console.log(error));
 
 }
-
+*/
 
 function getFilterDetails(worksheet: marks.Worksheet){
   worksheet.getFiltersAsync().then((response)=>{
