@@ -6,6 +6,11 @@ import Script from 'next/script';
 import marks from '@/app/linearview/tableau/extensions-api-types'
 
 
+function getData(worksheet: marks.Worksheet){
+  const columnsArray = worksheet.getSummaryColumnsInfoAsync();
+  console.log(columnsArray);
+}
+
 function MainComponent () {
 
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
@@ -20,12 +25,9 @@ function MainComponent () {
       tableau.extensions.initializeAsync().then(() => {
         const worksheet = tableau.extensions.worksheetContent?.worksheet
         let worksheetname = null;
-        //let worksheetsize: Sheet.Size | null = null; 
-        worksheet?.getSelectedMarksAsync().then((sheetmarks :marks.MarksCollection)=>{
-
-          const sheetData = sheetmarks.data;
-          console.log(sheetData.join(","));
-        })
+        getData(worksheet!);
+        
+        //let worksheetsize: Sheet.Size | null = null;
         try {
           if(worksheet && worksheet.name){
             worksheetname = worksheet.name;
@@ -39,6 +41,7 @@ function MainComponent () {
           console.error("Error getting Tableau settings:", error);
           setWorkSheetName(null);
         }
+      
     });
   }
     // eslint-disable-next-line react-hooks/exhaustive-deps
