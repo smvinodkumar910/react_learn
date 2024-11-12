@@ -49,10 +49,10 @@ function getFilterDetails(worksheet: marks.Worksheet): void{
           const categoricalFilter = filter as marks.CategoricalFilter;
           
           categoricalFilter.getDomainAsync().then(appliedValues => {
-            console.log("Selected Values:", appliedValues.values.forEach((value,i)=>{
-              console.log(value);
+            appliedValues.values.forEach((value,i)=>{
+              console.log("Selected Values:", value);
               console.log(i);
-            })); 
+            }); 
           })
 
           filter.getFieldAsync().then(response => {
