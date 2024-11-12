@@ -25,8 +25,10 @@ function getData(worksheet: marks.Worksheet){
   worksheet.getSummaryDataReaderAsync().then((response)=>{
     response.getAllPagesAsync(200).then(data => {
       data.data.forEach((value, index) => {
-        console.log(value.values.toString);
         console.log(index);
+        value.forEach(value => {
+          console.log(value.value);
+        })
       })
     })
   },(error) => console.log(error));
