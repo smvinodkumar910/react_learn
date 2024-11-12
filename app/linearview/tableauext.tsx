@@ -40,7 +40,7 @@ function MainComponent () {
 
   const renderSheet = () => {
     if (workSheetName) {
-      return <div>WorkSheet: {workSheetName} </div>;
+      return <div>WorkSheet: {workSheetName} of size {workSheetSize?.width} x { workSheetSize?.height} </div>;
     }
     return <div>No sheet selected</div>;
   };
