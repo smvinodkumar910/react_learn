@@ -11,9 +11,9 @@ function MainComponent () {
   
   useEffect(() => {
     
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && window.tableau) {
       
-      tableau.extensions.initializeAsync().then(() => {
+      window.tableau.extensions.initializeAsync().then(() => {
         let dashboardName = null;
         let selectedSheet = null;
         try {
