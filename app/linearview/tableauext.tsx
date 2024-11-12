@@ -38,75 +38,79 @@ function getData(worksheet: marks.Worksheet){
 }
 */
 
-function getFilterDetails(worksheet: marks.Worksheet): void{
-  worksheet.getFiltersAsync().then((response)=>{
-      response.forEach((filter, filterIndex)=>{
-          console.log(filterIndex);
-          console.log(filter.fieldName);
-          console.log(filter.filterType);
-          console.log(filter.fieldId)
+function getFilterDetails(worksheet: marks.Worksheet): void {
+  worksheet.getFiltersAsync().then((response) => {
+    response.forEach((filter) => {
+      /*console.log(filterIndex);
+      console.log(filter.fieldName);
+      console.log(filter.filterType);
+      console.log(filter.fieldId);
+      */
 
-          const categoricalFilter = filter as marks.CategoricalFilter;
-          
-          categoricalFilter.getDomainAsync().then(appliedValues => {
-            appliedValues.values.forEach((value,i)=>{
-              console.log("Selected Values:", value);
-              console.log(i);
-            }); 
-          })
-
-          filter.getFieldAsync().then(response => {
-              console.log(response.columnType);
-          });
-
-          
+      const categoricalFilter = filter as marks.CategoricalFilter;
+      categoricalFilter.appliedValues.forEach(function (value) {
+        console.log(value.formattedValue + ', ');
+      });
+      /*
+      categoricalFilter.getDomainAsync().then(appliedValues => {
+        appliedValues.values.forEach((value, i) => {
+          console.log("Selected Values:", value);
+          console.log(i);
+        });
       })
+      */
+      filter.getFieldAsync().then(response => {
+        console.log(response.columnType);
+      });
+
+
+    })
   }, (error) => console.log(error));
 }
 
 
-function MainComponent () {
+function MainComponent() {
 
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
   //const [workSheetSize, setWorkSheetSize] = React.useState<Sheet.Size | null>(null); // use to fit the Viz.
-  
 
-  
+
+
   useEffect(() => {
-   
+
     if (typeof window !== 'undefined' && tableau) {
-      
+
       tableau.extensions.initializeAsync().then(() => {
         const worksheet = tableau.extensions.worksheetContent?.worksheet
         let worksheetname = null;
         //getDataColumns(worksheet!);
         //getData(worksheet!)
-        
+
 
         if (worksheet) {
-        worksheet.addEventListener(tableau.TableauEventType.FilterChanged,function(filterChangedEvent){
-          console.log(filterChangedEvent)
-          getFilterDetails(worksheet!);
-      })
-    }
-        
+          worksheet.addEventListener(tableau.TableauEventType.FilterChanged, function (filterChangedEvent) {
+            console.log(filterChangedEvent)
+            getFilterDetails(worksheet!);
+          })
+        }
+
         //let worksheetsize: Sheet.Size | null = null;
         try {
-          if(worksheet && worksheet.name){
+          if (worksheet && worksheet.name) {
             worksheetname = worksheet.name;
             //worksheetsize = worksheet.size;
           }
-          
+
           setWorkSheetName(worksheetname);
           //setWorkSheetSize(worksheetsize!);
-          
+
         } catch (error) {
           console.error("Error getting Tableau settings:", error);
           setWorkSheetName(null);
         }
-      
-    });
-  }
+
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
