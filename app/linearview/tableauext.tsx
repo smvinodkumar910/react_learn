@@ -2,12 +2,13 @@
 
 import React, { useEffect } from 'react';
 import Script from 'next/script';
-
+import Sheet from '@/app/linearview/tableau/extensions-api-types'
 
 function MainComponent () {
 
-  const [selectedSheetName, setSelectedSheetName] = React.useState<string | null>(null);
-  const [dashboardName, setDashboardName] = React.useState<string | null>(null);
+  const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
+  const [workSheetSize, setWorkSheetSize] = React.useState<Sheet.Size | null>(null);
+  
 
   
   useEffect(() => {
@@ -15,21 +16,22 @@ function MainComponent () {
     if (typeof window !== 'undefined' && tableau) {
       
       tableau.extensions.initializeAsync().then(() => {
-      
-        let dashboardName = null;
-        let selectedSheet = null;
+        const worksheet =tableau.extensions.worksheetContent?.worksheet
+        let worksheetname = null;
+        let worksheetsize: Sheet.Size | null = null;
+        
         try {
-          if(tableau.extensions.dashboardContent && tableau.extensions.dashboardContent.dashboard){
-            dashboardName = tableau.extensions.dashboardContent.dashboard.name;
+          if(worksheet && worksheet.name){
+            worksheetname = worksheet.name;
+            worksheetsize = worksheet.size;
           }
-          selectedSheet = tableau.extensions.settings.get('sheet');          
           
-          setSelectedSheetName(typeof selectedSheet === 'string' ? selectedSheet : null);
-          setDashboardName(dashboardName);
+          setWorkSheetName(worksheetname);
+          setWorkSheetSize(worksheetsize!);
           
         } catch (error) {
           console.error("Error getting Tableau settings:", error);
-          setSelectedSheetName(null);
+          setWorkSheetName(null);
         }
     });
   }
@@ -37,8 +39,8 @@ function MainComponent () {
   }, []);
 
   const renderSheet = () => {
-    if (dashboardName) {
-      return <div>Selected Sheet: {selectedSheetName} in dashboard {dashboardName}</div>;
+    if (workSheetName) {
+      return <div>WorkSheet: {workSheetName} </div>;
     }
     return <div>No sheet selected</div>;
   };
