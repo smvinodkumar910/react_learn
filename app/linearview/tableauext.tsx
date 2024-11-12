@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import Script from 'next/script';
 //import Sheet from '@/app/linearview/tableau/extensions-api-types'
 import marks from '@/app/linearview/tableau/extensions-api-types';
-//import getFilterDetails from '@/app/linearview/applyFilters';
 
 
 
@@ -22,46 +21,36 @@ function getDataColumns(worksheet: marks.Worksheet){
   },(error) => console.log(error));
   
 }
+*/
 
 function getData(worksheet: marks.Worksheet){
   worksheet.getSummaryDataReaderAsync().then((response)=>{
     response.getAllPagesAsync(200).then(data => {
+      console.log(data.totalRowCount);
+      /*
       data.data.forEach((value, index) => {
         console.log(index);
         value.forEach(value => {
           console.log(value.value);
         })
-      })
+      }) */
+
     })
   },(error) => console.log(error));
 
 }
-*/
+
 
 function getFilterDetails(worksheet: marks.Worksheet): void {
   worksheet.getFiltersAsync().then((response) => {
     response.forEach((filter) => {
-      /*console.log(filterIndex);
-      console.log(filter.fieldName);
-      console.log(filter.filterType);
-      console.log(filter.fieldId);
-      */
-
+      
       const categoricalFilter = filter as marks.CategoricalFilter;
+
       categoricalFilter.appliedValues.forEach(function (value) {
         console.log(value.formattedValue + ', ');
       });
-      /*
-      categoricalFilter.getDomainAsync().then(appliedValues => {
-        appliedValues.values.forEach((value, i) => {
-          console.log("Selected Values:", value);
-          console.log(i);
-        });
-      })
-      */
-      filter.getFieldAsync().then(response => {
-        console.log(response.columnType);
-      });
+      
 
 
     })
@@ -84,13 +73,14 @@ function MainComponent() {
         const worksheet = tableau.extensions.worksheetContent?.worksheet
         let worksheetname = null;
         //getDataColumns(worksheet!);
-        //getData(worksheet!)
+        
 
 
         if (worksheet) {
           worksheet.addEventListener(tableau.TableauEventType.FilterChanged, function (filterChangedEvent) {
             console.log(filterChangedEvent)
             getFilterDetails(worksheet!);
+            getData(worksheet!)
           })
         }
 
