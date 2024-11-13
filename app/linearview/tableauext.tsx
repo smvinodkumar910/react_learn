@@ -30,7 +30,7 @@ function getData(worksheet: marks.Worksheet){
       console.log(data.totalRowCount);
       
       data.data.forEach((value) => {
-        const record = {from: value.at(1), to: value.at(2)};
+        const record = {from: value.at(1)?.value, to: value.at(2)?.value};
         records.push(record);
       }) 
       
