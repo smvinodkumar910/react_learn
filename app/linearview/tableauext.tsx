@@ -25,15 +25,15 @@ function getDataColumns(worksheet: marks.Worksheet){
 
 function getData(worksheet: marks.Worksheet){
   worksheet.getSummaryDataReaderAsync().then((response)=>{
-    response.getAllPagesAsync(200).then(data => {
+    response.getAllPagesAsync().then(data => {
       console.log(data.totalRowCount);
-      /*
+      
       data.data.forEach((value, index) => {
         console.log(index);
         value.forEach(value => {
           console.log(value.value);
         })
-      }) */
+      }) 
 
     })
   },(error) => console.log(error));
