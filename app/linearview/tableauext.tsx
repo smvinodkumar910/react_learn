@@ -23,15 +23,24 @@ function getDataColumns(worksheet: marks.Worksheet){
 }
 */
 
-function getData(worksheet: marks.Worksheet){
+function getData(worksheet: marks.Worksheet): { from: marks.DataValue | undefined; to: marks.DataValue | undefined; }[] {
   const records: { from: marks.DataValue | undefined; to: marks.DataValue | undefined; }[] =[];
   worksheet.getSummaryDataReaderAsync().then((response)=>{
     response.getAllPagesAsync().then(data => {
       console.log(data.totalRowCount);
       
       data.data.forEach((value) => {
-        const record = {from: value.at(1)?.value, to: value.at(2)?.value};
+        const fromValue = value.at(1)
+        const toValue = value.at(2)
+        const record: {from: marks.DataValue | undefined; to: marks.DataValue | undefined;} = {from: undefined, to: undefined};
+        if(fromValue){
+          record.from = fromValue.value;
+        }
+        if(toValue){
+          record.to = toValue.value;
+        }
         records.push(record);
+        
       }) 
       
     })
