@@ -1,9 +1,12 @@
 "use client"
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Script from 'next/script';
 //import Sheet from '@/app/linearview/tableau/extensions-api-types'
 import marks from '@/app/linearview/tableau/extensions-api-types';
+//import { createNetwork } from '@/app/linearview/dynamicNetwork';
+import { Network, Data, Options } from 'vis-network/standalone';
+
 
 
 
@@ -23,21 +26,21 @@ function getDataColumns(worksheet: marks.Worksheet){
 }
 */
 
-function getData(worksheet: marks.Worksheet): { from: marks.DataValue | undefined; to: marks.DataValue | undefined; }[] {
-  const records: { from: marks.DataValue | undefined; to: marks.DataValue | undefined; }[] =[];
+function getData(worksheet: marks.Worksheet): { from: string | undefined; to: string | undefined; }[] {
+  const records: { from: string | undefined; to: string | undefined; }[] =[];
   worksheet.getSummaryDataReaderAsync().then((response)=>{
     response.getAllPagesAsync().then(data => {
       console.log(data.totalRowCount);
       
       data.data.forEach((value) => {
-        const fromValue = value.at(1)
-        const toValue = value.at(2)
-        const record: {from: marks.DataValue | undefined; to: marks.DataValue | undefined;} = {from: undefined, to: undefined};
+        const fromValue = value.at(1);
+        const toValue = value.at(2);
+        const record: {from: string | undefined; to: string | undefined;} = {from: undefined, to: undefined};
         if(fromValue){
-          record.from = fromValue.value;
+          record.from = fromValue.formattedValue;
         }
         if(toValue){
-          record.to = toValue.value;
+          record.to = toValue.formattedValue;
         }
         records.push(record);
         
@@ -48,6 +51,8 @@ function getData(worksheet: marks.Worksheet): { from: marks.DataValue | undefine
   console.log(records);
   return records;
 }
+
+
 
 
 function getFilterDetails(worksheet: marks.Worksheet): void {
@@ -67,16 +72,17 @@ function getFilterDetails(worksheet: marks.Worksheet): void {
 }
 
 
-function MainComponent() {
-
+const MainComponent: React.FC =() => {
+  
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
+  const networkContainer = useRef<HTMLDivElement>(null);
   //const [workSheetSize, setWorkSheetSize] = React.useState<Sheet.Size | null>(null); // use to fit the Viz.
 
 
 
   useEffect(() => {
-
-    if (typeof window !== 'undefined' && tableau) {
+    
+    if (typeof window !== 'undefined' && tableau && networkContainer.current) {
 
       tableau.extensions.initializeAsync().then(() => {
         const worksheet = tableau.extensions.worksheetContent?.worksheet
@@ -89,7 +95,45 @@ function MainComponent() {
           worksheet.addEventListener(tableau.TableauEventType.FilterChanged, function (filterChangedEvent) {
             console.log(filterChangedEvent)
             getFilterDetails(worksheet!);
-            getData(worksheet!)
+            const tableaData = getData(worksheet!);
+            
+            const nodes: { id: string | undefined; label: string | undefined; }[] = [];
+            tableaData.forEach((value)=>{
+              nodes.push({ id: value.from, label: value.from });
+            });
+
+            const edges = tableaData ;
+
+            // Data for network
+            const data: Data = { nodes, edges };
+
+            // Network options
+            const options: Options = {
+              nodes: {
+                shape: 'dot',
+                size: 16,
+                color: {
+                  background: '#97C2FC',
+                  border: '#2B7CE9',
+                },
+                font: { color: '#343434' },
+              },
+              edges: {
+                color: '#848484',
+              },
+              physics: {
+                enabled: true,
+              },
+            };
+
+
+            if(networkContainer.current){
+              const network = new Network(networkContainer.current, data,options);
+              network.on('click', (params) => {
+                console.log('Clicked on:', params);
+              });
+            }
+            
           })
         }
 
@@ -123,6 +167,7 @@ function MainComponent() {
   return (
     <>
       <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
+      <div ref={networkContainer} style={{width: "100%", height: "800px"}}></div>
       {renderSheet()}
     </>
   );
