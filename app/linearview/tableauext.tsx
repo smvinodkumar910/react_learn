@@ -159,7 +159,7 @@ const MainComponent: React.FC =() => {
 
   const renderSheet = () => {
     if (workSheetName) {
-      return <div>WorkSheet: {workSheetName} </div>;
+      return <div ref={networkContainer} style={{width: "100%", height: "800px"}}></div>;
     }
     return <div>No sheet selected</div>;
   };
@@ -167,7 +167,7 @@ const MainComponent: React.FC =() => {
   return (
     <>
       <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
-      <div ref={networkContainer} style={{width: "100%", height: "800px"}}></div>
+      
       {renderSheet()}
     </>
   );
