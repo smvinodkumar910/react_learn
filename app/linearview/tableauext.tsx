@@ -75,7 +75,7 @@ function getFilterDetails(worksheet: marks.Worksheet): void {
 function MainComponent() {
   
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
-  const networkContainer = useRef<HTMLDivElement>(null);
+  const networkContainer = useRef<HTMLDivElement>(window.document.createElement('div'));
   //const [workSheetSize, setWorkSheetSize] = React.useState<Sheet.Size | null>(null); // use to fit the Viz.
 
 
@@ -103,7 +103,7 @@ function MainComponent() {
             });
 
             const edges = tableaData ;
-
+            console.log('edges', edges);
             // Data for network
             const data: Data = { nodes, edges };
 
@@ -127,12 +127,12 @@ function MainComponent() {
             };
 
 
-            if(networkContainer.current){
-              const network = new Network(networkContainer.current, data,options);
-              network.on('click', (params) => {
-                console.log('Clicked on:', params);
-              });
-            }
+            
+            const network = new Network( networkContainer.current,data,options);
+            network.on('click', (params) => {
+              console.log('Clicked on:', params);
+            });
+            
             
           })
         }
@@ -159,7 +159,7 @@ function MainComponent() {
 
   const renderSheet = () => {
     if (workSheetName) {
-      return <div ref={networkContainer} style={{width: "100%", height: "800px"}}></div>;
+      return <div>worksheet name is {workSheetName}</div>;
     }
     return <div>No sheet selected</div>;
   };
@@ -167,11 +167,10 @@ function MainComponent() {
   return (
     <>
       <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
-      (
     <div
       ref={networkContainer}
       style={{ width: '600px', height: '400px', border: '1px solid black' }}
-    />)
+    />
       {renderSheet()}
     </>
   );

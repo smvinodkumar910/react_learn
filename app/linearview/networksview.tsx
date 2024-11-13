@@ -4,6 +4,7 @@ import { Network, Data, Options } from 'vis-network/standalone';
 import 'vis-network/styles/vis-network.min.css';
 
 
+
 const VisNetwork: React.FC = () => {
   const networkContainer = useRef<HTMLDivElement>(null);
  
