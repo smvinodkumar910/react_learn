@@ -132,10 +132,10 @@ function MainComponent() {
 
             const network = new Network(container,data,options);
             networkContainer.current = container;
-            
-            network.on('click', (params) => {
+            network.redraw();
+            /*network.on('click', (params) => {
               console.log('Clicked on:', params);
-            });
+            });*/
             
             
           })
