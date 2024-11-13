@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Script from 'next/script';
 //import Sheet from '@/app/linearview/tableau/extensions-api-types'
 import marks from '@/app/linearview/tableau/extensions-api-types';
@@ -75,14 +75,17 @@ function getFilterDetails(worksheet: marks.Worksheet): void {
 function MainComponent() {
   
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
-  const networkContainer = useRef<HTMLDivElement>(window.document.createElement('div'));
+  const networkContainer = React.useRef<HTMLDivElement | null>(null);
+  
   //const [workSheetSize, setWorkSheetSize] = React.useState<Sheet.Size | null>(null); // use to fit the Viz.
 
 
 
   useEffect(() => {
     
-    if (typeof window !== 'undefined' && tableau && networkContainer.current) {
+    if (typeof window !== 'undefined' && tableau ) {
+       const container = document.createElement('div');
+
 
       tableau.extensions.initializeAsync().then(() => {
         const worksheet = tableau.extensions.worksheetContent?.worksheet
@@ -127,8 +130,9 @@ function MainComponent() {
             };
 
 
+            const network = new Network(container,data,options);
+            networkContainer.current = container;
             
-            const network = new Network( networkContainer.current,data,options);
             network.on('click', (params) => {
               console.log('Clicked on:', params);
             });
@@ -165,10 +169,11 @@ function MainComponent() {
   };
 
   return (
+    
     <>
       <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
-    <div
-      ref={networkContainer}
+     
+    <div ref={networkContainer}
       style={{ width: '600px', height: '400px', border: '1px solid black' }}
     />
       {renderSheet()}
