@@ -72,7 +72,7 @@ function getFilterDetails(worksheet: marks.Worksheet): void {
 }
 
 
-const MainComponent: React.FC =() => {
+function MainComponent() {
   
   const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
   const networkContainer = useRef<HTMLDivElement>(null);
@@ -167,7 +167,11 @@ const MainComponent: React.FC =() => {
   return (
     <>
       <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
-      
+      (
+    <div
+      ref={networkContainer}
+      style={{ width: '600px', height: '400px', border: '1px solid black' }}
+    />)
       {renderSheet()}
     </>
   );
