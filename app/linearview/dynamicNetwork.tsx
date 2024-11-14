@@ -94,8 +94,8 @@ const VisNetwork: React.FC = () => {
                     nodeSpacing : 20,
                     treeSpacing : 20,
                     blockShifting : true,
-                    edgeMinimization : true,
-                    shakeTowards : 'leaves'
+                    edgeMinimization : true
+                    
                 }
             },
             nodes: { 
@@ -105,7 +105,8 @@ const VisNetwork: React.FC = () => {
                 background: '#97C2FC',
                 border: '#2B7CE9',
               },
-              font: { color: '#343434' }
+              font: { color: '#343434' },
+              physics : true
             },
             edges: {
               color: '#848484',
@@ -118,7 +119,7 @@ const VisNetwork: React.FC = () => {
             physics : true,
             smooth : {
                enabled : true,
-               type : "continuous",
+               type : "dynamic",
                roundness : 0.2 
             }
         },
