@@ -11,15 +11,27 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
     return new Promise((resolve, reject) => {
       worksheet.getSummaryDataReaderAsync().then((response) => {
         response.getAllPagesAsync().then(data => {
-          const tableaData: { from: string | undefined; to: string | undefined; }[] = [];
+          const edges: { from: string; to: string; }[] = [];
+          const nodesArray: string[] = [] 
           data.data.forEach((value) => {
             const fromValue = value.at(1);
             const toValue = value.at(2);
-            tableaData.push({ from: fromValue?.formattedValue, to: toValue?.formattedValue });
+            const from = fromValue?.formattedValue;
+            const to = toValue?.formattedValue;
+            if(from && to){
+              nodesArray.push(from);
+              edges.push({ from: from, to: to });
+            }
+            
           });
-  
-          const nodes = tableaData.map((value) => ({ id: value.from, label: value.from }));
-          const edges = tableaData;
+          
+          const nodesUnique = new Set(nodesArray);
+          
+          const nodes: { id: string; label: string; }[] = [];
+          nodesUnique.forEach((value)=>{
+            nodes.push({ id: value, label: value });
+          });
+          
           const networkData: Data = { nodes, edges };
   
           resolve(networkData); 
