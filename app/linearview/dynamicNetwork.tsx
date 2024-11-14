@@ -44,7 +44,7 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
 
 const VisNetwork: React.FC = () => {
     const networkContainer = useRef<HTMLDivElement>(null);
-    const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
+    //const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
     const [currentData, setCurrentData] = React.useState<Data | null>(null);
 
     useEffect(() => {
@@ -53,7 +53,18 @@ const VisNetwork: React.FC = () => {
             const worksheet = tableau.extensions.worksheetContent?.worksheet;
     
             if (worksheet) {
-              setWorkSheetName(worksheet.name); 
+              //setWorkSheetName(worksheet.name); 
+
+              worksheet.addEventListener(tableau.TableauEventType.FilterChanged, function (filterChangedEvent) {
+                console.log(filterChangedEvent)
+                getData(worksheet)
+                .then(data => {
+                  console.log("Data fetched:", data); 
+                  setCurrentData(data);
+                })
+                .catch(error => console.error("Error fetching data:", error));
+              }
+              );
     
               getData(worksheet)
                 .then(data => {
@@ -101,14 +112,15 @@ const VisNetwork: React.FC = () => {
           }
         };
       }, [currentData]);
-
+    
+    /*
     const renderSheet = () => {
         if (workSheetName) {
             return <div>worksheet name is {workSheetName}</div>;
         }
         return <div>No sheet selected</div>;
     };
-
+    */
     return (
         <>
             <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
@@ -116,7 +128,6 @@ const VisNetwork: React.FC = () => {
                 ref={networkContainer}
                 style={{ width: '600px', height: '400px', border: '1px solid black' }}
             />
-            {renderSheet()}
         </>
 
     );
