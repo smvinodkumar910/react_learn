@@ -53,6 +53,7 @@ const VisNetwork: React.FC = () => {
 
                 const nodes: { id: string | undefined; label: string | undefined; }[] = [];
                 tableaData.forEach((value) => {
+                    console.log('inside node assingment',{ id: value.from, label: value.from })
                     nodes.push({ id: value.from, label: value.from });
                 });
 
