@@ -1,0 +1,12 @@
+layout : {
+                hierarchical: {
+                    enabled: true,
+                    direction: "LR",
+                    sortMethod: "directed",
+                    levelSeparation : 10,
+                    treeSpacing : 10,
+                    blockShifting : true,
+                    edgeMinimization : true
+                    
+                }
+            },

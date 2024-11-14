@@ -64,7 +64,7 @@ const VisNetwork: React.FC = () => {
   return (
     <div
       ref={networkContainer}
-      style={{ width: '600px', height: '400px', border: '1px solid black' }}
+      //style={{ width: '600px', height: '400px', border: '1px solid black' }}
     />
   );
 };
