@@ -116,7 +116,12 @@ const VisNetwork: React.FC = () => {
                   type: "arrow"
                 },
             },
-            physics : true
+            physics : true,
+            smooth : {
+               enabled : true,
+               type : "discrete",
+               roundness : 0.2 
+            }
         },
             physics: {
               enabled: true
