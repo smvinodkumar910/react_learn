@@ -85,6 +85,13 @@ const VisNetwork: React.FC = () => {
             autoResize: true,
             height: '100%',
             width: '100%',
+            layout : {
+                hierarchical: {
+                    enabled: true,
+                    direction: "LR",
+                    sortMethod: "directed"
+                }
+            },
             nodes: { 
               shape: 'dot',
               size: 16,
@@ -98,7 +105,7 @@ const VisNetwork: React.FC = () => {
               color: '#848484',
               arrows: {
                 to: {
-                  enabled: false,
+                  enabled: true,
                   type: "arrow"
                 },
             }
