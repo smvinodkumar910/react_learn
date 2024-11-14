@@ -85,7 +85,6 @@ const VisNetwork: React.FC = () => {
             autoResize: true,
             height: '100%',
             width: '100%',
-            clickToUse :true,
             nodes: { 
               shape: 'dot',
               size: 16,
@@ -97,10 +96,15 @@ const VisNetwork: React.FC = () => {
             },
             edges: {
               color: '#848484',
-              arrows : 'to, from',
-            },
+              arrows: {
+                to: {
+                  enabled: false,
+                  type: "arrow"
+                },
+            }
+        },
             physics: {
-              enabled: true,
+              enabled: true
             },
           };
     
