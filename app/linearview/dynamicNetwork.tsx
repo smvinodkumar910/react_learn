@@ -82,6 +82,18 @@ const VisNetwork: React.FC = () => {
     
         if (currentData && networkContainer.current) {
           const options: Options = { 
+            autoResize: true,
+            height: '100%',
+            width: '100%',
+            clickToUse :true,
+            layout :{
+                hierarchical : {
+                    enabled : true,
+                    direction : 'LR',
+                    sortMethod : 'directed',
+                    shakeTowards : 'roots'
+                }
+            },
             nodes: { 
               shape: 'dot',
               size: 16,
@@ -93,6 +105,7 @@ const VisNetwork: React.FC = () => {
             },
             edges: {
               color: '#848484',
+              arrows : 'to, from',
             },
             physics: {
               enabled: true,
