@@ -142,6 +142,7 @@ const VisNetwork: React.FC = () => {
             <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
             <div
                 ref={networkContainer}
+                className="h-screen w-screen"
                 //style={{ width: '600px', height: '400px', border: '1px solid black' }}
             />
         </>
