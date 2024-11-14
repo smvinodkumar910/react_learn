@@ -90,6 +90,9 @@ const VisNetwork: React.FC = () => {
                     enabled: true,
                     direction: "LR",
                     sortMethod: "directed",
+                    levelSeparation : 20,
+                    nodeSpacing : 20,
+                    treeSpacing : 20,
                     blockShifting : true,
                     edgeMinimization : true,
                     shakeTowards : 'leaves'
@@ -102,7 +105,7 @@ const VisNetwork: React.FC = () => {
                 background: '#97C2FC',
                 border: '#2B7CE9',
               },
-              font: { color: '#343434' },
+              font: { color: '#343434' }
             },
             edges: {
               color: '#848484',
@@ -111,6 +114,12 @@ const VisNetwork: React.FC = () => {
                   enabled: true,
                   type: "arrow"
                 },
+            },
+            physics : true,
+            smooth : {
+               enabled : true,
+               type : "continuous",
+               roundness : 0.2 
             }
         },
             physics: {
