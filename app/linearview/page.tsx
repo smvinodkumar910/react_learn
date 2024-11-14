@@ -12,9 +12,8 @@ export default function Home() {
   */
 
   return (
-    <><div id='mynetwork'
-      className="h-screen w-screen">
-        <VisNetwork/>
+    <><div id='mynetwork'>
+        <VisNetwork />
         </div>
       </>
   );
