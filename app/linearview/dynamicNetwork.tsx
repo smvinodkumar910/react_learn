@@ -49,11 +49,14 @@ const VisNetwork: React.FC = () => {
                 //getDataColumns(worksheet!);
 
                 const tableaData = getData(worksheet!);
+                console.log('tableaData', tableaData);
 
                 const nodes: { id: string | undefined; label: string | undefined; }[] = [];
                 tableaData.forEach((value) => {
                     nodes.push({ id: value.from, label: value.from });
                 });
+
+                console.log('nodes', nodes);
 
 
                 const edges = tableaData;
@@ -116,7 +119,7 @@ const VisNetwork: React.FC = () => {
         }
 
         
-    }, [currentData]);
+    }, []);
 
     const renderSheet = () => {
         if (workSheetName) {
