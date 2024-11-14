@@ -90,9 +90,8 @@ const VisNetwork: React.FC = () => {
                     enabled: true,
                     direction: "LR",
                     sortMethod: "directed",
-                    levelSeparation : 20,
-                    nodeSpacing : 20,
-                    treeSpacing : 20,
+                    levelSeparation : 10,
+                    treeSpacing : 10,
                     blockShifting : true,
                     edgeMinimization : true
                     
