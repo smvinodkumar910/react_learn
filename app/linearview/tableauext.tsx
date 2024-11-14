@@ -92,8 +92,6 @@ function MainComponent() {
         let worksheetname = null;
         //getDataColumns(worksheet!);
 
-
-        getFilterDetails(worksheet!);
         const tableaData = getData(worksheet!);
 
         const nodes: { id: string | undefined; label: string | undefined; }[] = [];
