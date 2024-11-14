@@ -86,14 +86,6 @@ const VisNetwork: React.FC = () => {
             height: '100%',
             width: '100%',
             clickToUse :true,
-            layout :{
-                hierarchical : {
-                    enabled : true,
-                    direction : 'LR',
-                    sortMethod : 'directed',
-                    shakeTowards : 'roots'
-                }
-            },
             nodes: { 
               shape: 'dot',
               size: 16,
