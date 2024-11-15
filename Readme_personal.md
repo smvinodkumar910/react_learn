@@ -24,7 +24,16 @@ pnpm dev
 3. Deploying to Cloud Run
 
 ```bash
+
+gcloud auth configure-docker us-east4-docker.pkg.dev/prj-edw-geocoder-1/scr-network-tableau-viz-ext
+
+docker build . -t us-east4-docker.pkg.dev/prj-edw-geocoder-1/scr-network-tableau-viz-ext/scr-network-tableau-viz-ext:staging
+
+docker push us-central1-docker.pkg.dev/prj-edw-geocoder-1/neodash-docker-repo/neodash-custom-editable:staging
+
 gcloud builds submit --tag gcr.io/[PROJECT_ID]/[SERVICE_NAME]
+
+gcloud builds submit --tag us-east4-docker.pkg.dev/prj-edw-geocoder-1/scr-network-tableau-viz-ext/scr-network-tableau-viz-ext:staging --project prj-edw-geocoder-1
 
 gcloud run deploy [SERVICE_NAME] \
     --image gcr.io/[PROJECT_ID]/[SERVICE_NAME] \
