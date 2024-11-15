@@ -12,24 +12,25 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
       worksheet.getSummaryDataReaderAsync().then((response) => {
         response.getAllPagesAsync().then(data => {
           const edges: { from: string; to: string; }[] = [];
-          const nodesArray: string[] = [] 
+          const nodesArray:  Set<{ id: string; label: string; group: string}> = new Set(); //string[] = [] 
           data.data.forEach((value) => {
             const fromValue = value.at(1);
             const toValue = value.at(2);
+            const nodeTypeValue = value.at(3);
             const from = fromValue?.formattedValue;
             const to = toValue?.formattedValue;
-            if(from && to){
-              nodesArray.push(from);
+            const nodeType = nodeTypeValue?.formattedValue;
+            if(from && to && nodeType){
+              nodesArray.add({ id: from, label: from, group: nodeType});
               edges.push({ from: from, to: to });
             }
             
           });
           
-          const nodesUnique = new Set(nodesArray);
           
-          const nodes: { id: string; label: string; }[] = [];
-          nodesUnique.forEach((value)=>{
-            nodes.push({ id: value, label: value });
+          const nodes: { id: string; label: string; group: string}[] = [];
+          nodesArray.forEach((value)=>{
+            nodes.push(value);
           });
           
           const networkData: Data = { nodes, edges };
@@ -93,7 +94,7 @@ const VisNetwork: React.FC = () => {
                 border: '#2B7CE9',
               },
               font: { color: '#343434' },
-              physics : true
+              physics : false
             },
             edges: {
               color: '#848484',
@@ -103,7 +104,7 @@ const VisNetwork: React.FC = () => {
                   type: "arrow"
                 },
             },
-            physics : true,
+            physics : false,
             smooth : {
                enabled : true,
                type : "discrete",
@@ -111,8 +112,20 @@ const VisNetwork: React.FC = () => {
             }
         },
             physics: {
-              enabled: true
+              enabled: false
             },
+            groups: {
+                END_MODEL_PLANT : {color:{background: '#fc8403'}, borderWidth:3},
+                Customer : {color:{background:'#b6fc03'}, borderWidth:3},
+                tier3 : {color:{background:'#03e3fc'}, borderWidth:3},
+                tier4 : {color:{background:'#03e3fc'}, borderWidth:3},
+                COMPONENT_PLANT : {color:{background:'#fc03c2'}, borderWidth:3},
+                Supplier : {color:{background:'#b103fc'}, borderWidth:3},
+                tier2 : {color:{background:'#03e3fc'}, borderWidth:3},
+                tier5 : {color:{background:'#03e3fc'}, borderWidth:3},
+                tier6 : {color:{background:'#03e3fc'}, borderWidth:3},
+                Logistics : {color:{background:'#03fc39'}, borderWidth:3}
+              }
           };
     
           network = new Network(networkContainer.current, currentData, options);
@@ -129,21 +142,13 @@ const VisNetwork: React.FC = () => {
         };
       }, [currentData]);
     
-    /*
-    const renderSheet = () => {
-        if (workSheetName) {
-            return <div>worksheet name is {workSheetName}</div>;
-        }
-        return <div>No sheet selected</div>;
-    };
-    */
+    
     return (
         <>
             <Script src="/scripts/tableau.extensions.1.latest.js" strategy="beforeInteractive" />
             <div
                 ref={networkContainer}
                 className="h-screen w-screen"
-                //style={{ width: '600px', height: '400px', border: '1px solid black' }}
             />
         </>
 
