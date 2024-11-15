@@ -12,7 +12,7 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
       worksheet.getSummaryDataReaderAsync().then((response) => {
         response.getAllPagesAsync().then(data => {
           const edges: { from: string; to: string; }[] = [];
-          const nodesArray:  Set<{ id: string; label: string; group: string}> = new Set(); //string[] = [] 
+          const nodesArray:  { id: string; label: string; group: string}[] = [] 
           data.data.forEach((value) => {
             const fromValue = value.at(1);
             const toValue = value.at(2);
@@ -21,8 +21,9 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
             const to = toValue?.formattedValue;
             const nodeType = nodeTypeValue?.formattedValue;
             if(from && to && nodeType){
-              if(!nodesArray.has({ id: from, label: from, group: nodeType})){
-                nodesArray.add({ id: from, label: from, group: nodeType});
+            if(nodesArray.indexOf({ id: from, label: from, group: nodeType})==-1)
+              {
+                nodesArray.push({ id: from, label: from, group: nodeType});
               }
               edges.push({ from: from, to: to });
             }
