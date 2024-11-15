@@ -13,6 +13,7 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
         response.getAllPagesAsync().then(data => {
           const edges: { from: string; to: string; }[] = [];
           const nodesArray:  { id: string; label: string; group: string}[] = [] 
+          const nodesMap = new Map<string, { id: string; label: string; group: string }>(); // Use a Map to track unique nodes
           data.data.forEach((value) => {
             const fromValue = value.at(1);
             const toValue = value.at(2);
@@ -21,23 +22,28 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
             const to = toValue?.formattedValue;
             const nodeType = nodeTypeValue?.formattedValue;
             if(from && to && nodeType){
-            if(nodesArray.indexOf({ id: from, label: from, group: nodeType})==-1)
+              const key = `${from}-${nodeType}`;
+            if(!nodesMap.has(key))
               {
-                nodesArray.push({ id: from, label: from, group: nodeType});
+                const newNode = { id: from, label: from, group: nodeType };
+                nodesArray.push(newNode);
+                nodesMap.set(key, newNode); 
               }
               edges.push({ from: from, to: to });
             }
             
           });
           
+          /*
           const nodesunique = new Set(nodesArray);
           
           const nodes: { id: string; label: string; group: string}[] = [];
           nodesunique.forEach((value)=>{
             nodes.push(value);
           });
+          */
           
-          const networkData: Data = { nodes, edges };
+          const networkData: Data = { nodes: nodesArray, edges: edges };
   
           resolve(networkData); 
         }).catch(reject);
