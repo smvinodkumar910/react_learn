@@ -29,9 +29,10 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
             
           });
           
+          const nodesunique = new Set(nodesArray);
           
           const nodes: { id: string; label: string; group: string}[] = [];
-          nodesArray.forEach((value)=>{
+          nodesunique.forEach((value)=>{
             nodes.push(value);
           });
           
