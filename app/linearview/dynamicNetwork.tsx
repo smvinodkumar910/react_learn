@@ -21,7 +21,9 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
             const to = toValue?.formattedValue;
             const nodeType = nodeTypeValue?.formattedValue;
             if(from && to && nodeType){
-              nodesArray.add({ id: from, label: from, group: nodeType});
+              if(!nodesArray.has({ id: from, label: from, group: nodeType})){
+                nodesArray.add({ id: from, label: from, group: nodeType});
+              }
               edges.push({ from: from, to: to });
             }
             
