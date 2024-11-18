@@ -10,6 +10,7 @@ const cspHeader = `
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'https://*tableau.com*';
+    x-frame-options 'allow-from https://*tableau.com*';
     upgrade-insecure-requests;
 `;
 
