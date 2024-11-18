@@ -51,6 +51,7 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
     });
   }
 
+/*
 function configure():{ 'status' : 'success' | 'error'}{
   tableau.extensions.initializeDialogAsync().then(() => {
 
@@ -60,7 +61,7 @@ function configure():{ 'status' : 'success' | 'error'}{
   return { 'status': 'success' };
 
 }
-
+*/
 
 const VisNetwork: React.FC = () => {
     const networkContainer = useRef<HTMLDivElement>(null);
@@ -69,7 +70,7 @@ const VisNetwork: React.FC = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined' && networkContainer.current && tableau) {
-          tableau.extensions.initializeAsync({'configure' : configure}).then(() => {
+          tableau.extensions.initializeAsync().then(() => {
             const worksheet = tableau.extensions.worksheetContent?.worksheet;
     
             if (worksheet) {
