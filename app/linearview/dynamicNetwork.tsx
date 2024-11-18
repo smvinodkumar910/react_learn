@@ -63,6 +63,19 @@ function configure():{ 'status' : 'success' | 'error'}{
 }
 */
 
+function testmarks(worksheet: marks.Worksheet){
+  worksheet.getSelectedMarksAsync().then((value)=>{
+    const marksData = value.data;
+    marksData.forEach((dataTable)=>{
+      dataTable.columns.forEach((column)=>{
+        console.log(column.fieldName);
+      })
+    })
+  }, (error)=>{
+    console.log(error);
+  })
+}
+
 const VisNetwork: React.FC = () => {
     const networkContainer = useRef<HTMLDivElement>(null);
     //const [workSheetName, setWorkSheetName] = React.useState<string | null>(null);
@@ -84,6 +97,9 @@ const VisNetwork: React.FC = () => {
                   setCurrentData(data);
                 })
                 .catch(error => console.error("Error fetching data:", error));
+
+                testmarks(worksheet);
+                
               }
               );
     
