@@ -122,18 +122,6 @@ const VisNetwork: React.FC = () => {
         autoResize: true,
         height: '100%',
         width: '100%',
-        layout: {
-          hierarchical: {
-            enabled: true,
-            direction: "LR",
-            sortMethod: "directed",
-            levelSeparation: 10,
-            treeSpacing: 10,
-            blockShifting: true,
-            edgeMinimization: true
-
-          }
-        },
         nodes: {
           shape: 'dot',
           size: 16,
