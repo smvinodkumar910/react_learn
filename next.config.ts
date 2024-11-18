@@ -25,7 +25,7 @@ module.exports = {
             value: cspHeader.replace(/\n/g, ''),
           },
           {
-            key: 'X-FRAME-OPTIONS',
+            key: 'X-Frame-Options',
             value: 'https://*tableau.com*',
           },
         ],
