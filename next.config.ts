@@ -9,8 +9,7 @@ const cspHeader = `
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'https://*tableau.com*';
-    x-frame-options 'allow-from https://*tableau.com*';
+    frame-ancestors https://*tableau.com*;
     upgrade-insecure-requests;
 `;
 
@@ -24,6 +23,10 @@ module.exports = {
           {
             key: 'Content-Security-Policy',
             value: cspHeader.replace(/\n/g, ''),
+          },
+          {
+            key: 'X-FRAME-OPTIONS',
+            value: 'https://*tableau.com*',
           },
         ],
       },
