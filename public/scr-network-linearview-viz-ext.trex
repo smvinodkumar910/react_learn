@@ -13,9 +13,9 @@
     <permissions>
         <permission>full data</permission>
       </permissions>
-      <context-menu>
+      <!--<context-menu>
         <configure-context-menu-item />
-      </context-menu>
+      </context-menu>!-->
   </worksheet-extension>
   <resources>
     <resource id="name">
