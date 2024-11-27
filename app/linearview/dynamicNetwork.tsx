@@ -11,6 +11,7 @@ function getData(worksheet: marks.Worksheet): Promise<Data> {
   return new Promise((resolve, reject) => {
     worksheet.getSummaryDataReaderAsync().then((response) => {
       response.getAllPagesAsync().then(data => {
+        console.log("marks info",data.marksInfo)
         const edges: { from: string; to: string; }[] = [];
         const nodesArray: { id: string; label: string; group: string }[] = []
         const nodesMap = new Map<string, { id: string; label: string; group: string }>(); // Use a Map to track unique nodes
