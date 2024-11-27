@@ -152,16 +152,16 @@ const VisNetwork: React.FC = () => {
           enabled: false
         },
         groups: {
-          END_MODEL_PLANT: { color: { background: '#fc8403' }, borderWidth: 3 },
-          Customer: { color: { background: '#b6fc03' }, borderWidth: 3 },
-          tier3: { color: { background: '#03e3fc' }, borderWidth: 3 },
-          tier4: { color: { background: '#03e3fc' }, borderWidth: 3 },
-          COMPONENT_PLANT: { color: { background: '#fc03c2' }, borderWidth: 3 },
-          Supplier: { color: { background: '#b103fc' }, borderWidth: 3 },
-          tier2: { color: { background: '#03e3fc' }, borderWidth: 3 },
-          tier5: { color: { background: '#03e3fc' }, borderWidth: 3 },
-          tier6: { color: { background: '#03e3fc' }, borderWidth: 3 },
-          Logistics: { color: { background: '#03fc39' }, borderWidth: 3 }
+          END_MODEL_PLANT: { color: { background: '#fc8403' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\mfg.png' },
+          Customer: { color: { background: '#b6fc03' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\customer.png' },
+          tier3: { color: { background: '#03e3fc' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\tier3.png' },
+          tier4: { color: { background: '#03e3fc' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\tier4.png' },
+          COMPONENT_PLANT: { color: { background: '#fc03c2' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\mfg.png' },
+          Supplier: { color: { background: '#b103fc' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\tier1.png' },
+          tier2: { color: { background: '#03e3fc' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\tier2.png' },
+          tier5: { color: { background: '#03e3fc' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\tier5.png' },
+          tier6: { color: { background: '#03e3fc' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\tier6.png' },
+          Logistics: { color: { background: '#03fc39' }, borderWidth: 3, shape: 'image', image: '\linearviewImages\Logistic.png' }
         }
       };
 

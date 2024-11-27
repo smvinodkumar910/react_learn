@@ -10,3 +10,17 @@ layout : {
                     
                 }
             },
+
+
+{
+          END_MODEL_PLANT: { color: { background: '#fc8403' }, borderWidth: 3 },
+          Customer: { color: { background: '#b6fc03' }, borderWidth: 3 },
+          tier3: { color: { background: '#03e3fc' }, borderWidth: 3 },
+          tier4: { color: { background: '#03e3fc' }, borderWidth: 3 },
+          COMPONENT_PLANT: { color: { background: '#fc03c2' }, borderWidth: 3 },
+          Supplier: { color: { background: '#b103fc' }, borderWidth: 3 },
+          tier2: { color: { background: '#03e3fc' }, borderWidth: 3 },
+          tier5: { color: { background: '#03e3fc' }, borderWidth: 3 },
+          tier6: { color: { background: '#03e3fc' }, borderWidth: 3 },
+          Logistics: { color: { background: '#03fc39' }, borderWidth: 3 }
+        }
