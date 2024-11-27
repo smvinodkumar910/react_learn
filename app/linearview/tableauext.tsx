@@ -31,7 +31,7 @@ function getData(worksheet: marks.Worksheet): { from: string | undefined; to: st
   worksheet.getSummaryDataReaderAsync().then((response) => {
     response.getAllPagesAsync().then(data => {
       console.log(data.totalRowCount);
-
+      console.log("marks info",data.marksInfo)
       data.data.forEach((value) => {
         const fromValue = value.at(1);
         const toValue = value.at(2);
