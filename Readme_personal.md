@@ -41,3 +41,14 @@ gcloud run deploy [SERVICE_NAME] \
     --platform managed \
     --allow-unauthenticated
 ```
+
+gcloud run deploy SERVICE --image IMAGE_URL --set-env-vars KEY1=VALUE1,KEY2=VALUE2
+
+gcloud run deploy neodash-vinod-test \
+--image=us-central1-docker.pkg.dev/prj-edw-geocoder-1/neodash-docker-repo/neodash:2.4.8-custom.3 \
+--allow-unauthenticated \
+--port=5005 \
+--service-account=244762339286-compute@developer.gserviceaccount.com \
+--region=us-east4 \
+--project=prj-edw-geocoder-1
+--set-env-vars KEY1=VALUE1,KEY2=VALUE2
